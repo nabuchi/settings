@@ -1,0 +1,25 @@
+<VirtualHost *:8080>
+	ServerAdmin nabnab.adm@gmail.com
+	ServerName nabnet.dip.jp:8080
+    ServerAlias nabnet.no-ip.org:8080
+	DocumentRoot /var/www/main/
+	#log
+	ErrorLog /var/log/apache2/error.log
+	LogLevel warn
+	CustomLog /var/log/apache2/access.log combined
+	#AllSetting
+	<Directory />
+		Options None
+		AllowOverride None
+		Order allow,deny
+		Allow from all
+	</Directory>
+	#MainSetting
+	<Directory /var/www/main/>
+		#not use htpassed
+		Options +MultiViews +FollowSymLinks +ExecCGI
+		AllowOverride None
+		Order allow,deny
+		Allow from all
+	</Directory>
+</VirtualHost>
