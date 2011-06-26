@@ -1,0 +1,15 @@
+[user]
+	name = nab
+	email = napu1031@gmail.com
+[color]
+    #ui = auto
+    status=auto
+    diff=auto
+[push]
+    default=current
+[core]
+	editor = vim
+[alias]
+    co=checkout
+    br=branch
+    st=status
