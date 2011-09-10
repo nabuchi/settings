@@ -1,59 +1,95 @@
-" general
+""" general
 set nocompatible
 
-" color
-syntax on
-colorscheme oceandeep
+""" Vundle
+filetype off
+set rtp+=~/.vim/vundle/
+call vundle#rc()
+Bundle 'tpope/vim-fugitive'
+Bundle 'ujihisa/quickrun'
+Bundle 'Shougo/neocomplcache'
+Bundle 'vim-scripts/AutoComplPop'
+Bundle 'Shougo/unite.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tpope/vim-haml'
+Bundle 'plsql.vim'
+Bundle 'plsql.vim-syntax'
+"Bundle 'molokai'
+"Bundle 'oceandeep'
+filetype plugin indent on
 
+""" color
+syntax on
+"colorscheme oceandeep
+"colorscheme molokai
+
+""" zenkaku
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue
 match ZenkakuSpace /　/
-let lisp_rainbow = 1 " set ft=lisp
+set list
+set lcs=tab:>-,trail:_
 
-" disp
+""" disp
 set number
 set ruler
 set showmatch
 set showcmd
 
-" edit
+""" edit
 set autoindent
 set cindent
-set showmatch
+set scrolloff=5 "fast scroll
+set wrap
+set whichwrap=b,s,h,l,<,>,[,]
 set backspace=indent,eol,start
-set whichwrap=b,s,h,l,<,>,[,]"行末-行頭
-set wrap"折り返し
-set scrolloff=5"スクロール時の余白確保
 
-" tab
+""" tab
 set tabstop=4
 set expandtab
 set smarttab
 set shiftwidth=4
 set shiftround
 
-" search
+""" search
 set ignorecase
 set smartcase
 set nowrapscan
-set hlsearch 
+set hlsearch
 
-" plugin
-filetype on
-filetype plugin on
-source $VIMRUNTIME/macros/matchit.vim
-
-" statusline
+""" statusline
 set laststatus=2
 set statusline=%<%f\ %m%r%h%w[%B/%b]
 set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).']['.&fileformat.']'}
 set statusline+=%=%l/%L,%c%V%8P
 
-" keymap
+""" keymap
 nnoremap j gj
 nnoremap k gk
-map <F2> <ESC>:bp<CR>
-map <F3> <ESC>:bn<CR>
-map <F4> <ESC>:bw<CR>
-" japanese
+
+""" plugin
+filetype on
+filetype plugin on
+
+""" encode
 set enc=utf-8
-set fencs=utf-8
+set fenc=utf-8
+set fileencodings=ucs-bom,utf-8,euc-jp,cp932,sjis,default,latin1
+
+""" plugin 
+"" neocomplcache
+let g:neocomplcache_enable_at_startup = 1
+"buffer
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+"file
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+"register
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+"recently
+nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+"ordinaly
+nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+"all
+nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+
+"" matchit.vim
+source $VIMRUNTIME/macros/matchit.vim "for ruby do end

@@ -213,12 +213,17 @@ esac
 
 
 ## load user .zshrc configuration file
+export PATH="$PATH:/usr/lib/oracle/xe/app/oracle/product/10.2.0/client/bin"
 #
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
-
 
 #source /home/daiki/perl5/perlbrew/etc/bashrc
 
 export PATH="/usr/local/lib/ruby-1.9.2-p0/bin:$PATH"
+## for oracle
+#. /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh
+export PATH="$PATH:/usr/lib/oracle/xe/app/oracle/product/10.2.0/client/bin"
 
 [[ -s "/home/daiki/.rvm/scripts/rvm" ]] && source "/home/daiki/.rvm/scripts/rvm"
+export CLASSPATH="/usr/share/jetty/lib/jetty-util.jar:/usr/share/jetty/lib/servlet-api-2.5.jar:/usr/share/jetty/lib/jetty.jar:."
+
