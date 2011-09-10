@@ -1,0 +1,226 @@
+# zsh generic settings
+
+## LANG
+export LANG=ja_JP.UTF-8
+case ${UID} in
+0)
+    LANG=C
+    ;;
+esac
+
+
+## Default shell configuration
+#
+# set prompt
+autoload colors
+colors
+case ${UID} in
+0)
+    PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') %B%{${fg[green]}%}%/#%{${reset_color}%}%b "
+    PROMPT2="%B%{${fg[green]}%}%_#%{${reset_color}%}%b "
+    SPROMPT="%B%{${fg[green]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
+    ;;
+*)
+    PROMPT="%{${fg[cyan]}%}%n@%m%{${fg[green]}%}[%~]%%%{${reset_color}%} "
+    RPROMPT="[%h]%T"
+    PROMPT2="%{${fg[green]}%}%_%%%{${reset_color}%} "
+    SPROMPT="%{${fg[green]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
+    ;;
+esac
+
+# auto change directory
+#
+setopt auto_cd
+
+# auto directory pushd that you can get dirs list by cd -[tab]
+#
+setopt auto_pushd
+setopt pushd_ignore_dups
+
+# command correct edition before each completion attempt
+#
+setopt correct
+
+# compacked complete list display
+#
+setopt list_packed
+
+# no remove postfix slash of command line
+#
+setopt noautoremoveslash
+
+# no beep sound when complete list displayed
+#
+setopt nolistbeep
+
+
+## Keybind configuration
+#
+# emacs like keybind (e.x. Ctrl-a gets to line head and Ctrl-e gets
+#   to end) and something additions
+#
+bindkey -e
+bindkey "^[[1~" beginning-of-line # Home gets to line head
+bindkey "^[[4~" end-of-line # End gets to line end
+bindkey "^[[3~" delete-char # Del
+
+# historical backward/forward search with linehead string binded to ^P/^N
+#
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
+bindkey "\\ep" history-beginning-search-backward-end
+bindkey "\\en" history-beginning-search-forward-end
+
+# reverse menu completion binded to Shift-Tab
+#
+bindkey "\e[Z" reverse-menu-complete
+
+
+## Command history configuration
+#
+HISTFILE=${HOME}/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+setopt hist_ignore_dups     # ignore duplication command history list
+setopt share_history        # share command history data
+
+
+## Completion configuration
+#
+fpath=(${HOME}/.zsh/functions/Completion ${fpath})
+autoload -U compinit
+compinit
+
+
+## zsh editor
+#
+autoload zed
+
+
+## Prediction configuration
+#
+#autoload predict-on
+#predict-off
+
+## Function Setting
+function cdup() {
+echo
+cd ..
+zle reset-prompt
+}
+zle -N cdup
+#bindkey '\^' cdup
+
+function chpwd() { ls -v -F --color=auto}
+
+## Alias configuration
+#
+# expand aliases before completing
+#
+setopt complete_aliases     # aliased ls needs if file/dir completions work
+
+alias where="command -v"
+alias j="jobs -l"
+
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    alias ls="ls -G -w"
+    ;;
+linux*)
+    alias ls="ls --color=auto"
+    ;;
+esac
+
+alias la="ls -a"
+alias lf="ls -F"
+alias ll="ls -l"
+alias l="ls -lFA --color"
+
+#alias du="du -h"
+#alias df="df -h"
+
+#alias su="su -l"
+
+alias vi="vim"
+
+alias -g V='| vim -R -'
+
+alias screen="env TERM=screen screen"
+
+
+
+## terminal configuration
+#
+case "${TERM}" in
+screen)
+    TERM=xterm
+    ;;
+esac
+
+#resource file
+MgazouL=(jpg jpeg gif bmp tga png)
+McompL=(tar tgz taz lzh zip gz bz2)
+McodeL=(cpp c pl)
+
+MgazouC='01;35'
+McompC='01;31'
+McodeC='01;33'
+for i ($MgazouL) Mgazou="$Mgazou:*.$i=$MgazouC"
+for i ($McompL) Mcomp="$Mcomp:*.$i=$McompC"
+for i ($McodeL) Mcode="$Mcode:*.$i=$McodeC"
+
+#general file
+Mgen='di=01;34:ln=01;36:so=01;35:pi=40;33:ex=01;32:bd=40;33:cd=40;33:su=37;41:sg=30;43:tw=30;42:ow=34;42'
+
+Mlscolors="$Mgen$Mgazou$Mcomp$Mcode"
+zstyle ':completion:*' list-colors 'di=01;34' 'ln=01;36' 'so=01;35' 'ex=01;32' 'bd=40;33' 'cd=40;33'
+case "${TERM}" in
+xterm|xterm-color)
+    export LSCOLORS=exfxcxdxbxegedabagacad
+    export LS_COLORS=${Mlscolors}
+    ;;
+kterm-color)
+    stty erase '^H'
+    export LSCOLORS=exfxcxdxbxegedabagacad
+    export LS_COLORS=${Mlscolors}
+    ;;
+kterm)
+    stty erase '^H'
+    ;;
+cons25)
+    unset LANG
+    export LSCOLORS=ExFxCxdxBxegedabagacad
+    export LS_COLORS=${Mlscolors}
+    ;;
+jfbterm-color)
+    export LSCOLORS=gxFxCxdxBxegedabagacad
+    export LS_COLORS=${Mlscolors}
+    ;;
+esac
+
+# set terminal title including current directory
+#
+case "${TERM}" in
+xterm|xterm-color|kterm|kterm-color)
+    precmd() {
+        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+    }
+    ;;
+esac
+
+
+## load user .zshrc configuration file
+#
+[ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
+
+
+#source /home/daiki/perl5/perlbrew/etc/bashrc
+
+export PATH="/usr/local/lib/ruby-1.9.2-p0/bin:$PATH"
+
+[[ -s "/home/daiki/.rvm/scripts/rvm" ]] && source "/home/daiki/.rvm/scripts/rvm"
+
+source .zshrc_local
