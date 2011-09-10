@@ -1,0 +1,11 @@
+[ui]
+username = nab <nabnab.main+nyanko@gmail.com>
+editor = vim
+
+[extensions]
+color =
+graphlog =
+record =
+
+[alias]
+log = log -r:
