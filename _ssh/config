@@ -30,6 +30,11 @@ Host ana
     User nab
     HostName 192.168.1.8
     IdentityFile ~/.ssh/id_rsa
+Host nobue
+    User daiki
+    Port 22822
+    HostName 192.168.11.8
+    IdentityFile ~/.ssh/id_rsa
 Host *
 	ForwardAgent yes
 	ForwardX11Trusted yes
