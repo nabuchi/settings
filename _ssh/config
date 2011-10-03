@@ -13,6 +13,10 @@ Host matsuri*
     User daiki
     Port 22822
     HostName nabnet.dip.jp
+Host lmatsuri*
+    User daiki
+    Port 22822
+    HostName 192.168.11.4
 Host ice*
 	User nabuchi
 	HostName master.ice.uec.ac.jp
