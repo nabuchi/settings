@@ -1,0 +1,31 @@
+# Dump all the variables to the debug log to ensure that the configuration was picked up properly.
+#dump
+
+# Output debugging information to /var/log/debug
+debug
+
+# Do not support BSD compression.
+nobsdcomp
+passive
+lock
+
+# Allow all usernames to connect.
+name *
+proxyarp
+ipcp-accept-local
+ipcp-accept-remote
+lcp-echo-failure 3
+lcp-echo-interval 5
+nodeflate
+
+# Do not authenticate incoming connections. This is handled by IPsec.
+noauth
+refuse-chap
+refuse-mschap
+refuse-mschap-v2
+
+# Set the DNS servers the PPP clients will use.
+ms-dns ns1.dns.ne.jp
+mtu 1450
+mru 1450
+logfile /var/log/xl2tpd.log
