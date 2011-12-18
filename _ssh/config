@@ -39,6 +39,10 @@ Host nobue
     Port 22822
     HostName 192.168.11.8
     IdentityFile ~/.ssh/id_rsa
+Host sakuya
+    User daiki
+    Port 22822
+    HostName www26095u.sakura.ne.jp
 Host *
 	ForwardAgent yes
 	ForwardX11Trusted yes
