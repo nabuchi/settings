@@ -2,7 +2,7 @@
 	name = nab
 	email = napu1031@gmail.com
 [color]
-    #ui = auto
+    ui = auto
     status=auto
     diff=auto
 [push]
