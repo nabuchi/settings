@@ -8,7 +8,8 @@
 [push]
     default=current
 [core]
-	editor = vim
+    editor = vim
+    pager  = lv -c
 [alias]
     co=checkout
     br=branch
