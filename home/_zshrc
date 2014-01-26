@@ -114,8 +114,6 @@ zle reset-prompt
 zle -N cdup
 #bindkey '\^' cdup
 
-function chpwd() { ls -v -F --color=auto}
-
 ## Alias configuration
 #
 # expand aliases before completing
@@ -214,13 +212,4 @@ esac
 
 ## load user .zshrc configuration file
 #
-[ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
-
-#source /home/daiki/perl5/perlbrew/etc/bashrc
-
-export PATH="/usr/local/lib/ruby-1.9.2-p0/bin:$PATH"
-
-[[ -s "/home/daiki/.rvm/scripts/rvm" ]] && source "/home/daiki/.rvm/scripts/rvm"
-#export CLASSPATH="/usr/share/jetty/lib/jetty-util.jar:/usr/share/jetty/lib/servlet-api-2.5.jar:/usr/share/jetty/lib/jetty.jar:."
-
-source .zshrc_local
+[ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
