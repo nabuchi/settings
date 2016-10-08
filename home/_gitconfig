@@ -1,18 +1,9 @@
 [user]
-	name = nab
-	email = napu1031@gmail.com
-[color]
-    ui = auto
-    status=auto
-    diff=auto
-[push]
-    default=current
+	name = nabuchi
+	email = nabnab.main+github@gmail.com
 [core]
-    editor = vim
-    pager  = lv -c
+  editor = vim
 [alias]
-    co=checkout
-    br=branch
-    st=status
-[gui]
-	recentrepo = /Users/nab/settings
+  co=checkout
+  br=branch
+  st=status
