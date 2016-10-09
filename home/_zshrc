@@ -174,10 +174,10 @@ for i ($McodeL) Mcode="$Mcode:*.$i=$McodeC"
 Mgen='di=01;34:ln=01;36:so=01;35:pi=40;33:ex=01;32:bd=40;33:cd=40;33:su=37;41:sg=30;43:tw=30;42:ow=34;42'
 
 Mlscolors="$Mgen$Mgazou$Mcomp$Mcode"
-zstyle ':completion:*' list-colors 'di=01;34' 'ln=01;36' 'so=01;35' 'ex=01;32' 'bd=40;33' 'cd=40;33'
+zstyle ':completion:*' list-colors 'di=01;36' 'ln=01;36' 'so=01;35' 'ex=01;32' 'bd=40;33' 'cd=40;33'
 case "${TERM}" in
-xterm|xterm-color)
-    export LSCOLORS=exfxcxdxbxegedabagacad
+xterm|xterm-color|xterm-256color)
+    export LSCOLORS=gxfxcxdxbxegedabagacad
     export LS_COLORS=${Mlscolors}
     ;;
 kterm-color)
