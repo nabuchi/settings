@@ -209,6 +209,62 @@ xterm|xterm-color|kterm|kterm-color)
     ;;
 esac
 
+## anyenv
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
+
+## gvm
+source $HOME/.gvm/scripts/gvm
+
+## peco
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
+
+function peco-git-branch-checkout () {
+  local res
+  local branch=$(git branch -a | peco | tr -d ' ')
+  if [ -n "$branch" ]; then
+    if [[ "$branch" =~ "remotes/" ]]; then
+      local b=$(echo $branch | awk -F'/' '{print $3}')
+      res="git checkout -b '${b}' '${branch}'"
+      BUFFER=$res
+      zle accept-line
+    else
+      res="git checkout '${branch}'"
+      BUFFER=$res
+      zle accept-line
+    fi
+  fi
+}
+zle -N peco-git-branch-checkout
+bindkey '^g' peco-git-branch-checkout
+
+function peco-ssh () {
+  local selected_host=$(awk '
+  tolower($1)=="host" {
+    for (i=2; i<=NF; i++) {
+      if ($i !~ "[*?]") {
+        print $i
+      }
+    }
+  }
+  ' ~/.ssh/config | sort | peco --query "$LBUFFER")
+  if [ -n "$selected_host" ]; then
+    BUFFER="ssh ${selected_host}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-ssh
+bindkey '^\' peco-ssh
 
 ## load user .zshrc configuration file
 #

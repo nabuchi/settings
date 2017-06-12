@@ -3,9 +3,18 @@
 	email = nabnab.main+github@gmail.com
 [core]
   editor = vim
+	excludesfile = /Users/nabuchi/.gitignore_global
 [alias]
   co=checkout
   br=branch
   st=status
+  ph=push origin HEAD
+  delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
 [credential]
 	helper = osxkeychain
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
