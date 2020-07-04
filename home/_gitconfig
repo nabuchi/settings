@@ -9,7 +9,7 @@
   br=branch
   st=status
   psh=push origin HEAD
-  plh=!"git pull --rebase origin `git rev-parse -abbrev-ref HEAD`"
+  plh=!"git pull --rebase origin `git rev-parse --abbrev-ref HEAD`"
   pr=!"hub pull-request --browse"
   delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
 [credential]
