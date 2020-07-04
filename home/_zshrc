@@ -210,11 +210,7 @@ xterm|xterm-color|kterm|kterm-color)
 esac
 
 ## anyenv
-export PATH="$HOME/.anyenv/bin:$PATH"
 eval "$(anyenv init -)"
-
-## gvm
-source $HOME/.gvm/scripts/gvm
 
 ## peco
 function peco-src () {
