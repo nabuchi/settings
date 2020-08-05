@@ -226,10 +226,10 @@ bindkey '^]' peco-src
 
 function peco-git-branch-checkout () {
   local res
-  local branch=$(git branch -a | peco | tr -d ' ')
+  local branch=$(git branch -a | grep -v 'remotes/origin/HEAD' | peco | tr -d ' ')
   if [ -n "$branch" ]; then
     if [[ "$branch" =~ "remotes/" ]]; then
-      local b=$(echo $branch | awk -F'/' '{print $3}')
+      local b=$(echo $branch | perl -ne 'print $1 if /remotes\/origin\/(.*)/')
       res="git checkout -b '${b}' '${branch}'"
       BUFFER=$res
       zle accept-line
