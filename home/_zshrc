@@ -209,9 +209,6 @@ xterm|xterm-color|kterm|kterm-color)
     ;;
 esac
 
-## anyenv
-eval "$(anyenv init -)"
-
 ## peco
 function peco-src () {
   local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
